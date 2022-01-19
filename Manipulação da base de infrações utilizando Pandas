@@ -1,0 +1,405 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled2.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyNiG1rYcDmk2s8/Z2HFpjgU",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/ThainaAgostinho/Banco-de-Dados/blob/main/Manipula%C3%A7%C3%A3o%20da%20base%20de%20infra%C3%A7%C3%B5es%20utilizando%20Pandas\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "id": "MCX6BHXLfkVN"
+      },
+      "outputs": [],
+      "source": [
+        "import pandas as pd\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import numpy as np "
+      ],
+      "metadata": {
+        "id": "a5K-jv8BhC-g"
+      },
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "##Importando a base\n",
+        "df = pd.read_csv('infracoes3.csv' , sep = ';')"
+      ],
+      "metadata": {
+        "id": "s6rR_a5YjCPH"
+      },
+      "execution_count": 7,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Verificando os tipos de dados das colunas da base\n",
+        "df.dtypes"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "_PeUszkTkgre",
+        "outputId": "9eeb16c6-5f10-49b2-e87f-1a44c3bc483c"
+      },
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "tipo_infracao               object\n",
+              "tipo_infrator               object\n",
+              "tipo_veiculo                object\n",
+              "cometimento         datetime64[ns]\n",
+              "hora_cometimento            object\n",
+              "grav_tipo                   object\n",
+              "dtype: object"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 11
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Visualizando Base\n",
+        "df.head()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 206
+        },
+        "id": "EgjOyzw3o2YB",
+        "outputId": "a48fae40-3e2d-4a90-9408-667b8f870cb2"
+      },
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "\n",
+              "  <div id=\"df-6ec9dcfd-f63c-4eb4-9b24-d83c65838319\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>tipo_infracao</th>\n",
+              "      <th>tipo_infrator</th>\n",
+              "      <th>tipo_veiculo</th>\n",
+              "      <th>cometimento</th>\n",
+              "      <th>hora_cometimento</th>\n",
+              "      <th>grav_tipo</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>7455-0</td>\n",
+              "      <td>Condutor</td>\n",
+              "      <td>AUTOMOVEL</td>\n",
+              "      <td>01/09/2021</td>\n",
+              "      <td>00:00</td>\n",
+              "      <td>Média</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>5843-4</td>\n",
+              "      <td>Condutor</td>\n",
+              "      <td>AUTOMOVEL</td>\n",
+              "      <td>01/09/2021</td>\n",
+              "      <td>00:00</td>\n",
+              "      <td>Grave</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>7455-0</td>\n",
+              "      <td>Condutor</td>\n",
+              "      <td>AUTOMOVEL</td>\n",
+              "      <td>01/09/2021</td>\n",
+              "      <td>00:01</td>\n",
+              "      <td>Média</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>7455-0</td>\n",
+              "      <td>Condutor</td>\n",
+              "      <td>CAMIONETA</td>\n",
+              "      <td>01/09/2021</td>\n",
+              "      <td>00:05</td>\n",
+              "      <td>Média</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>7455-0</td>\n",
+              "      <td>Condutor</td>\n",
+              "      <td>AUTOMOVEL</td>\n",
+              "      <td>01/09/2021</td>\n",
+              "      <td>00:05</td>\n",
+              "      <td>Média</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-6ec9dcfd-f63c-4eb4-9b24-d83c65838319')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-6ec9dcfd-f63c-4eb4-9b24-d83c65838319 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-6ec9dcfd-f63c-4eb4-9b24-d83c65838319');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ],
+            "text/plain": [
+              "  tipo_infracao tipo_infrator  ... hora_cometimento grav_tipo\n",
+              "0        7455-0      Condutor  ...            00:00     Média\n",
+              "1        5843-4      Condutor  ...            00:00     Grave\n",
+              "2        7455-0      Condutor  ...            00:01     Média\n",
+              "3        7455-0      Condutor  ...            00:05     Média\n",
+              "4        7455-0      Condutor  ...            00:05     Média\n",
+              "\n",
+              "[5 rows x 6 columns]"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 9
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "##Transformando a coluna de cometimento em um dado do tipo data\n",
+        "df[\"cometimento\"] = pd.to_datetime(df[\"cometimento\"])"
+      ],
+      "metadata": {
+        "id": "v54XF9u1pAYY"
+      },
+      "execution_count": 10,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Verificando o total de infrações por tipo\n",
+        "freq = df.groupby(['grav_tipo']).count() \n",
+        "print(freq)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ffzpk_GUp0Xo",
+        "outputId": "d615d6b2-ee7c-40a5-8de5-78c1788792ea"
+      },
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "            tipo_infracao  tipo_infrator  ...  cometimento  hora_cometimento\n",
+            "grav_tipo                                 ...                               \n",
+            "Grave                  16             16  ...           16                16\n",
+            "Gravissíma              6              6  ...            6                 6\n",
+            "Média                  90             90  ...           90                90\n",
+            "\n",
+            "[3 rows x 5 columns]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "##Verificando o total de infrações por dia\n",
+        "freq = df.groupby(['cometimento']).count() \n",
+        "print(freq)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "k18ibgbuqidC",
+        "outputId": "bdf52d42-8503-4477-bc79-7d141b8e1d32"
+      },
+      "execution_count": 15,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "             tipo_infracao  tipo_infrator  ...  hora_cometimento  grav_tipo\n",
+            "cometimento                                ...                             \n",
+            "2021-01-09             112            112  ...               112        112\n",
+            "\n",
+            "[1 rows x 5 columns]\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "##Verificando se há valores nulos\n",
+        "df.isnull().sum()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "GjfagnZbrG_q",
+        "outputId": "c9d261b7-9414-4d2a-c005-3852e1ff027c"
+      },
+      "execution_count": 17,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "tipo_infracao       0\n",
+              "tipo_infrator       0\n",
+              "tipo_veiculo        0\n",
+              "cometimento         0\n",
+              "hora_cometimento    0\n",
+              "grav_tipo           0\n",
+              "dtype: int64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 17
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        ""
+      ],
+      "metadata": {
+        "id": "K8MXoxe0rnrx"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
